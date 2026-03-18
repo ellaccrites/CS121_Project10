@@ -26,14 +26,14 @@ abstract class User implements HasMenu, Serializable {
 	
     	public boolean login(String userName, String PIN){;
 		if(userName.equals(this.userName)){
-                        if(PIN.equals(this.PIN)){
-                                return true;
-                        } else {
-                                return false;
-                        }// end if else
-                } else {
-                        return false;
-                }// end if else
+                       	if(PIN.equals(this.PIN)){
+                               	return true;
+                       	} else {
+                               	return false;
+                       	}// end if else
+               	} else {
+                       	return false;
+               	}// end if else	
 	}// end login with parameters
 	
     	public void setUserName(String userName){

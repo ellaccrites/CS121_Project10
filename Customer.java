@@ -36,32 +36,40 @@ public class Customer extends User implements HasMenu {
 	}// end customer with params
 	
     	public void start(){
-		if(this.login()){
-			boolean keepGoing = true;
-			while(keepGoing){
-				String userChoice = this.menu();
-				if(userChoice.equals("0")){
-					System.out.println("Leaving Customer Menu...");
-					keepGoing = false;
-				} else if(userChoice.equals("1")){
-					System.out.println("In Checking Account");
-					this.checking.start();
-				} else if(userChoice.equals("2")){
-					System.out.println("In Savings Account");
-					this.savings.start();
-				} else if(userChoice.equals("3")){
-					this.changePin();
-				} else {
-					System.out.println("Not a valid input.");
-				}// end else if
-				System.out.println();
-			}// end while
-		} else {
-			System.out.println("Not a valid User Name and/or entered an incorrect password. Restart the program to try again.");
-		}// end if else
+		boolean keepGoing = true;
+		while(keepGoing){
+			if(this.login()){
+				System.out.println("Login successful.");
+				keepGoing = false;
+			} else {
+				System.out.println("Login unsuccessful. Please check if your Username and PIN are correct.");
+			}// end if else
+			System.out.println();
+		}// end while
+
+		keepGoing = true;
+		while(keepGoing){
+			String userChoice = this.menu();
+			if(userChoice.equals("0")){
+				System.out.println("Leaving Customer Menu...");
+				keepGoing = false;
+			} else if(userChoice.equals("1")){
+				System.out.println("-- In Checking Account --");
+				this.checking.start();
+			} else if(userChoice.equals("2")){
+				System.out.println("-- In Savings Account --");
+				this.savings.start();
+			} else if(userChoice.equals("3")){
+				this.changePin();
+			} else {
+				System.out.println("Not a valid input.");
+			}// end else if
+			System.out.println();
+		}// end while
 	}// end start
 	
 	public String menu(){
+		System.out.println("-- In Customer Menu --");
 		System.out.println("0) quit");
 		System.out.println("1) manage Checking Account");
 		System.out.println("2) manage Savings Account");
@@ -70,6 +78,7 @@ public class Customer extends User implements HasMenu {
 
 		Scanner input = new Scanner(System.in);
 		String userChoice = input.nextLine();
+		System.out.println();
 
 		return userChoice;
 	}// end menu
