@@ -44,11 +44,11 @@ abstract class User implements HasMenu, Serializable {
 		return this.userName;
 	}// end getUserName
 	
-   	public void setPIN(String PIN){
+   	public void setPin(String PIN){
 		this.PIN = PIN;
 	}// end setPIN
 	
-    	public String getPIN(){
+    	public String getPin(){
 		return this.PIN;
 	}// end getPIN
 	

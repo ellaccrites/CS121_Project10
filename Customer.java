@@ -6,16 +6,83 @@ public class Customer extends User implements HasMenu {
 	SavingsAccount savings;
 
 	public static void main(String[] args){
-		Customer c = new Customer();
+		Customer c = new Customer("Alice", "0000");
 		c.start();
 	}// end main
 	
 	public Customer(){
+		this.checking = new CheckingAccount();
+		this.savings = new SavingsAccount();
 		
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter user name: ");
+		String userName = input.nextLine();
+
+		System.out.print("Enter PIN: ");
+		String PIN = input.nextLine();
+
+		this.setUserName(userName);
+		this.setPin(PIN);
+
+		System.out.println();
 	}// end customer
 	
-	public Customer(String userName
+	public Customer(String userName, String PIN){
+		this.setUserName(userName);
+		this.setPin(PIN);
 
+		this.checking = new CheckingAccount(5d);
+                this.savings = new SavingsAccount(10d);
+	}// end customer with params
+	
+    	public void start(){
+		if(this.login()){
+			boolean keepGoing = true;
+			while(keepGoing){
+				String userChoice = this.menu();
+				if(userChoice.equals("0")){
+					System.out.println("Leaving Customer Menu...");
+					keepGoing = false;
+				} else if(userChoice.equals("1")){
+					System.out.println("In Checking Account");
+					this.checking.start();
+				} else if(userChoice.equals("2")){
+					System.out.println("In Savings Account");
+					this.savings.start();
+				} else if(userChoice.equals("3")){
+					this.changePin();
+				} else {
+					System.out.println("Not a valid input.");
+				}// end else if
+				System.out.println();
+			}// end while
+		} else {
+			System.out.println("Not a valid User Name and/or entered an incorrect password. Restart the program to try again.");
+		}// end if else
+	}// end start
+	
+	public String menu(){
+		System.out.println("0) quit");
+		System.out.println("1) manage Checking Account");
+		System.out.println("2) manage Savings Account");
+		System.out.println("3) change PIN");
+		System.out.print("Choose 0-3: ");
 
+		Scanner input = new Scanner(System.in);
+		String userChoice = input.nextLine();
 
+		return userChoice;
+	}// end menu
+	
+	public void changePin(){
+		Scanner input = new Scanner(System.in);
+		System.out.print("What would you like to change PIN to? ");
+		String newPin = input.nextLine();
+		this.setPin(newPin);
+	}// end changePIN
+	
+	public String getReport(){
+		String report = "User: " + this.getUserName() + ", Checking: " + this.checking.getBalance() + ", Savings: " + this.savings.getBalance();
+		return report;
+	}// end getReport
 }// end class

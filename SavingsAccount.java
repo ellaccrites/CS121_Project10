@@ -7,7 +7,15 @@ public class SavingsAccount extends CheckingAccount implements HasMenu {
 		SavingsAccount sa = new SavingsAccount();
 		sa.start();
 	}// end main
-
+	
+	public SavingsAccount(){
+		this.balance = 0d;
+	}// end constructor
+	
+	public SavingsAccount(double balance){
+                this.balance = balance;
+        }// end constructor
+	
 	public void calcInterest(){
 		double interestEarned = this.balance * this.interestRate;
 		this.balance = this.balance + interestEarned;
