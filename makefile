@@ -19,7 +19,7 @@ SavingsAccount.class: SavingsAccount.java CheckingAccount.class
 HasMenu.class: HasMenu.java
 	javac -g HasMenu.java
 
-testBank: Bank.class
+run: Bank.class
 	java Bank
 
 testAdmin: Admin.class

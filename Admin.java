@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Admin extends User implements HasMenu {
-        private String userName;
+	private String userName;
 	private String PIN;
 
         public static void main(String[] args){
@@ -10,12 +10,13 @@ public class Admin extends User implements HasMenu {
 		a.start();
 	}// end main
 	
-	public void Admin(){
-		this.userName = "admin";
-		this.PIN = "0000";
+	public Admin(){
+		this.setUserName("admin");
+		this.setPin("0000");
 	}// end constructor
 	
 	public void start(){
+		System.out.println("user: " + this.getUserName() + "Pin: " + this.getPin());
 	}// end start
 	
 	public String menu(){
