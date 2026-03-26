@@ -1,3 +1,9 @@
+Bank.class: Bank.java Admin.java Customer.java User.class CheckingAccount.class SavingsAccount.class
+	javac -g Bank.java
+
+Admin.class: Admin.java Customer.java User.class CheckingAccount.class SavingsAccount.class
+	javac -g Admin.java
+
 Customer.class: Customer.java User.class CheckingAccount.class SavingsAccount.class
 	javac -g Customer.java
 
@@ -12,6 +18,9 @@ SavingsAccount.class: SavingsAccount.java CheckingAccount.class
 
 HasMenu.class: HasMenu.java
 	javac -g HasMenu.java
+
+testBank: Bank.class
+	java Bank
 
 testAdmin: Admin.class
 	java Admin

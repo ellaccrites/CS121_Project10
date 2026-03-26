@@ -1,0 +1,41 @@
+import java.util.*;
+import java.io.*;
+
+public class Admin extends User implements HasMenu {
+        private String userName;
+	private String PIN;
+
+        public static void main(String[] args){
+		Admin a = new Admin();
+		a.start();
+	}// end main
+	
+	public void Admin(){
+		this.userName = "admin";
+		this.PIN = "0000";
+	}// end constructor
+	
+	public void start(){
+	}// end start
+	
+	public String menu(){
+                System.out.println("-- In Admin Menu --");
+                System.out.println("0) quit");
+                System.out.println("1) print full customer report");
+                System.out.println("2) add a user");
+                System.out.println("3) apply interest to savings accounts");
+                System.out.print("Choose 0-3: ");
+
+                Scanner input = new Scanner(System.in);
+                String userChoice = input.nextLine();
+                System.out.println();
+
+                return userChoice;
+        }// end menu
+	
+	public String getReport(){
+		String report = "User Name: " + this.userName + ", PIN: " + this.PIN;
+		return report;
+	}// end getReport
+}// end class def
+
