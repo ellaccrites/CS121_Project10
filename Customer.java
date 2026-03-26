@@ -13,17 +13,6 @@ public class Customer extends User implements HasMenu {
 	public Customer(){
 		this.checking = new CheckingAccount();
 		this.savings = new SavingsAccount();
-		
-		Scanner input = new Scanner(System.in);
-		System.out.print("Enter user name: ");
-		String userName = input.nextLine();
-
-		System.out.print("Enter PIN: ");
-		String PIN = input.nextLine();
-
-		this.setUserName(userName);
-		this.setPin(PIN);
-
 		System.out.println();
 	}// end customer
 	
@@ -37,17 +26,6 @@ public class Customer extends User implements HasMenu {
 	
     	public void start(){
 		boolean keepGoing = true;
-		while(keepGoing){
-			if(this.login()){
-				System.out.println("Login successful.");
-				keepGoing = false;
-			} else {
-				System.out.println("Login unsuccessful. Please check if your Username and PIN are correct.");
-			}// end if else
-			System.out.println();
-		}// end while
-
-		keepGoing = true;
 		while(keepGoing){
 			String userChoice = this.menu();
 			if(userChoice.equals("0")){
@@ -91,7 +69,7 @@ public class Customer extends User implements HasMenu {
 	}// end changePIN
 	
 	public String getReport(){
-		String report = "User: " + this.getUserName() + ", Checking: " + this.checking.getBalance() + ", Savings: " + this.savings.getBalance();
+		String report = "User: " + this.getUserName() + ", Checking: $" + this.checking.getBalance() + ", Savings: $" + this.savings.getBalance();
 		return report;
 	}// end getReport
 }// end class

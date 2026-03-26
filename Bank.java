@@ -24,11 +24,11 @@ public class Bank implements HasMenu {
                 Scanner input = new Scanner(System.in);
                 String userChoice = input.nextLine();
                 System.out.println();
-
                 return userChoice;
         }// end menu
 	
 	public void start(){
+		System.out.println();
 		boolean keepGoing = true;
 		while(keepGoing){
 			String userChoice = menu();
@@ -37,20 +37,19 @@ public class Bank implements HasMenu {
 				keepGoing = false;
 			} else if(userChoice.equals("1")){
 				System.out.println("-- Administrator Login --");
-				System.out.println();
 				boolean status = this.admin.login();
 				if(status){
 					this.adminStart();
 				} else {
 					System.out.println("Incorrect username or password.");
 				}// end if
+				System.out.println();
 			} else if(userChoice.equals("2")){
-				System.out.println("Customer Login");
+				this.customerLogin();
 				// call cutomer login function
 			} else {
 				System.out.println("Please enter 0, 1, or 2");
 			}// end else if
-			System.out.println();
 		}// end while
 	}// end start
 	
@@ -63,19 +62,66 @@ public class Bank implements HasMenu {
 				keepGoing = false;
 			} else if(userChoice.equals("1")){
 				System.out.println("Generating cusomer report...");
-				// call report function
+				this.fullCustomerReport();
 			} else if(userChoice.equals("2")){
 				System.out.println("Preparing to add user...");
-				// call add user function
+				this.addUser();
 			} else if(userChoice.equals("3")){
 				System.out.println("Applying interest...");
-				// call interest function
+				this.applyInterest();
 			} else{
 				System.out.println("Please enter 0, 1, 2, or 3");
 			}// end if else
 			System.out.println();
 		}// end while
 	}// end adminStart
+	
+	public void customerLogin(){
+		System.out.println("-- Customer Login --");
+		Scanner input = new Scanner(System.in);
+                System.out.print("User name: ");
+                String userName = input.nextLine();
+                System.out.print("PIN: ");
+                String PIN = input.nextLine();
+
+		Customer currentCustomer  = new Customer();
+		for(int i = 0; i < customers.size(); i++){
+			boolean status = customers.get(i).login(userName, PIN);
+			if(status){
+				currentCustomer = customers.get(i);
+			} else {
+				System.out.println("Login unsuccessful.");
+			}// end if else
+		}// end for
+		System.out.println();
+		currentCustomer.start();
+	}// end customerLogin
+	
+	public void addUser(){
+		System.out.println("Please enter the folowing information...");
+		Scanner input = new Scanner(System.in);
+                System.out.print("User name: ");
+                String userName = input.nextLine();
+                System.out.print("PIN: ");
+                String PIN = input.nextLine();
+
+		Customer c = new Customer(userName, PIN);
+		customers.add(c);
+	}// end addUser
+	
+	public void fullCustomerReport(){
+		for(int i = 0; i < customers.size(); i++){
+			String report = customers.get(i).getReport();
+			System.out.println(report);
+		}// end for
+	}// end fullCustomerReport
+	
+	public void applyInterest(){
+		for(int i = 0; i < customers.size(); i++){
+			customers.get(i).savings.calcInterest();	
+		}// end for
+		fullCustomerReport();
+	}// end applyInterest
 }// ends class def
 
 class CustomerList extends ArrayList<Customer> {};

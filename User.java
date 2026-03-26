@@ -4,9 +4,22 @@ import java.io.*;
 abstract class User implements HasMenu, Serializable {
 	String userName;
 	String PIN;
-
+	
+	public boolean login(String userName, String PIN){;
+                if(userName.equals(this.userName)){
+                        if(PIN.equals(this.PIN)){
+                                return true;
+                        } else {
+                                return false;
+                        }// end if else
+                } else {
+                        return false;
+                }// end if else
+        }// end login with parameters
+	
 	public boolean login(){
 		Scanner input = new Scanner(System.in);
+		System.out.println("if you see this, you're in the wrong login.");
 		System.out.print("User name: ");
 		String userName = input.nextLine();
 
@@ -15,26 +28,17 @@ abstract class User implements HasMenu, Serializable {
 		
 		if(userName.equals(this.userName)){
 			if(PIN.equals(this.PIN)){
+			System.out.println();
 				return true;
 			} else {
+				System.out.println();
 				return false;
 			}// end if else
 		} else {
+			System.out.println();
 			return false;
 		}// end if else
 	}// end login
-	
-    	public boolean login(String userName, String PIN){;
-		if(userName.equals(this.userName)){
-                       	if(PIN.equals(this.PIN)){
-                               	return true;
-                       	} else {
-                               	return false;
-                       	}// end if else
-               	} else {
-                       	return false;
-               	}// end if else	
-	}// end login with parameters
 	
     	public void setUserName(String userName){
 		this.userName = userName;
