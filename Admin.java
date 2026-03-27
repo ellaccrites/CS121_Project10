@@ -21,10 +21,10 @@ public class Admin extends User implements HasMenu {
 	
 	public String menu(){
                 System.out.println("-- In Admin Menu --");
-                System.out.println("0) quit");
-                System.out.println("1) print full customer report");
-                System.out.println("2) add a user");
-                System.out.println("3) apply interest to savings accounts");
+                System.out.println("0) Quit");
+                System.out.println("1) Print full customer report");
+                System.out.println("2) Add a customer");
+                System.out.println("3) Apply interest to savings accounts");
                 System.out.print("Choose 0-3: ");
 
                 Scanner input = new Scanner(System.in);

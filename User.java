@@ -19,7 +19,6 @@ abstract class User implements HasMenu, Serializable {
 	
 	public boolean login(){
 		Scanner input = new Scanner(System.in);
-		System.out.println("if you see this, you're in the wrong login.");
 		System.out.print("User name: ");
 		String userName = input.nextLine();
 
@@ -35,7 +34,6 @@ abstract class User implements HasMenu, Serializable {
 				return false;
 			}// end if else
 		} else {
-			System.out.println();
 			return false;
 		}// end if else
 	}// end login

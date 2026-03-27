@@ -1,6 +1,7 @@
 import java.util.*;
+import java.io.*;
 
-public class SavingsAccount extends CheckingAccount implements HasMenu {
+public class SavingsAccount extends CheckingAccount implements HasMenu, Serializable {
 	private double interestRate = .05d;
 
 	public static void main(String[] args){

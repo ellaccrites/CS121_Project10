@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class CheckingAccount implements HasMenu{
+public class CheckingAccount implements HasMenu, Serializable {
 	double balance;
 
 	public static void main(String[] args){
@@ -18,15 +18,16 @@ public class CheckingAccount implements HasMenu{
 	}// end constructor
 	
 	public String menu(){
-		System.out.println("0) quit");
-		System.out.println("1) check balance");
-		System.out.println("2) make a deposit");
-		System.out.println("3) make a withdrawal");
+		System.out.println("0) Quit");
+		System.out.println("1) Check balance");
+		System.out.println("2) Make a deposit");
+		System.out.println("3) Make a withdrawal");
 		System.out.print("Choose 0-3: ");
 
 		Scanner input = new Scanner(System.in);
 		String userChoice = input.nextLine();
-
+		
+		System.out.println();
 		return userChoice;
 	}// end menu
 	
@@ -35,7 +36,7 @@ public class CheckingAccount implements HasMenu{
 		while(keepGoing){
 			String userChoice = this.menu();
 			if(userChoice.equals("0")){
-				System.out.println("Leaving Account Menu...");
+				System.out.print("Leaving Account Menu...");
 				keepGoing = false;
 			} else if(userChoice.equals("1")){
 				System.out.println("Checking balance...");
@@ -67,6 +68,7 @@ public class CheckingAccount implements HasMenu{
 	}// end setBalance
 	
 	public void checkBalance(){
+		System.out.println();
 		System.out.println("Current balance: " + this.getBalanceString());
 	}// end checkBalance
 	
@@ -84,6 +86,7 @@ public class CheckingAccount implements HasMenu{
 	}// end getDouble
 	
 	public void makeDeposit(){
+		System.out.println();
 		System.out.print("Amount to deposit? ");
 		double newBalance = this.balance + getDouble();
 		this.setBalance(newBalance);
@@ -92,12 +95,13 @@ public class CheckingAccount implements HasMenu{
 	}// end makeDeposit
 	
 	public void makeWithdrawal(){
-                System.out.print("Amount to withdrawal? ");
+                System.out.println();
+		System.out.print("Amount to withdrawal? ");
 		double toWithdraw = 0d;
 		toWithdraw = getDouble();
 
 		if(toWithdraw > this.balance){
-			System.out.println("There is not enough in account to withdraw entered amount.");
+			System.out.println("Insufficient funds.");
 		}else{
 			double newBalance = this.balance - toWithdraw;
 			this.setBalance(newBalance);

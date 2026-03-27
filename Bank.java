@@ -10,15 +10,20 @@ public class Bank implements HasMenu {
 	}// end main
 	
 	public Bank(){
-		this.start();
-	}// end constructor
+    		// uncomment the next two lines to refresh data
+
+    		//this.loadSampleCustomers();
+    		//this.saveCustomers();
+    		this.loadCustomers();
+    		this.start();
+    		this.saveCustomers();
+  	} // end constructor
 	
 	public String menu(){
                 System.out.println("-- Bank Menu --");
-                System.out.println("0) exit");
+                System.out.println("0) Exit system");
                 System.out.println("1) Login as admin");
                 System.out.println("2) Login as customer");
-		System.out.println();
                 System.out.print("Choose 0-2: ");
 
                 Scanner input = new Scanner(System.in);
@@ -58,14 +63,14 @@ public class Bank implements HasMenu {
 		while(keepGoing){
 			String userChoice = this.admin.menu();
 			if(userChoice.equals("0")){
-				System.out.println("Quitting Admin menu...");
+				System.out.print("Quitting Admin menu...");
 				keepGoing = false;
 			} else if(userChoice.equals("1")){
 				System.out.println("Generating cusomer report...");
 				this.fullCustomerReport();
 			} else if(userChoice.equals("2")){
-				System.out.println("Preparing to add user...");
-				this.addUser();
+				System.out.println("Preparing to add customer...");
+				this.addCustomer();
 			} else if(userChoice.equals("3")){
 				System.out.println("Applying interest...");
 				this.applyInterest();
@@ -85,20 +90,22 @@ public class Bank implements HasMenu {
                 String PIN = input.nextLine();
 
 		Customer currentCustomer  = new Customer();
-		for(int i = 0; i < customers.size(); i++){
-			boolean status = customers.get(i).login(userName, PIN);
+		for(Customer customer: customers){
+			boolean status = customer.login(userName, PIN);
 			if(status){
-				currentCustomer = customers.get(i);
-			} else {
-				System.out.println("Login unsuccessful.");
-			}// end if else
-		}// end for
-		System.out.println();
+				currentCustomer = customer;
+			}// end if
+		}// end for	
+			
+		if(currentCustomer == null){
+			System.out.println("Could not login. Please check username and password.");
+		}// end if
+
 		currentCustomer.start();
 	}// end customerLogin
 	
-	public void addUser(){
-		System.out.println("Please enter the folowing information...");
+	public void addCustomer(){
+		System.out.println("Please enter the folowing information:");
 		Scanner input = new Scanner(System.in);
                 System.out.print("User name: ");
                 String userName = input.nextLine();
@@ -110,19 +117,51 @@ public class Bank implements HasMenu {
 	}// end addUser
 	
 	public void fullCustomerReport(){
-		for(int i = 0; i < customers.size(); i++){
-			String report = customers.get(i).getReport();
-			System.out.println(report);
+		for(Customer customer: customers){
+			System.out.println(customer.getReport());
 		}// end for
 	}// end fullCustomerReport
 	
 	public void applyInterest(){
-		for(int i = 0; i < customers.size(); i++){
-			customers.get(i).savings.calcInterest();	
-		}// end for
+		for(Customer customer: customers){
+			customer.savings.calcInterest();
+                }// end for
+		System.out.println("Printing Updated User Report...");
 		fullCustomerReport();
 	}// end applyInterest
-}// ends class def
+	
+	public void loadSampleCustomers(){
+		customers.add(new Customer("Anna", "1111"));
+		customers.add(new Customer("Benny", "2222"));
+		customers.add(new Customer("Carol", "3333"));
+	}// end loadSampleCustomers
+	
+	public void loadCustomers(){
+		try {
+			FileInputStream fi = new FileInputStream("Customers.dat");
+			ObjectInputStream obIn = new ObjectInputStream(fi);
+			customers = (CustomerList)obIn.readObject();
+
+			obIn.close();
+			fi.close();
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+		}// end try
+        }// end loadCustomers
+	
+	public void saveCustomers(){
+		try {
+			FileOutputStream fo = new FileOutputStream("Customers.dat");
+			ObjectOutputStream obOut = new ObjectOutputStream(fo);
+			obOut.writeObject(customers);
+			obOut.close();
+			fo.close();
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+		}// end try
+	}// end saveCustomers
+
+}// end class def	
 
 class CustomerList extends ArrayList<Customer> {};
 

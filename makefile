@@ -1,7 +1,7 @@
-Bank.class: Bank.java Admin.java Customer.java User.class CheckingAccount.class SavingsAccount.class
+Bank.class: Bank.java Admin.class Customer.class User.class 
 	javac -g Bank.java
 
-Admin.class: Admin.java Customer.java User.class CheckingAccount.class SavingsAccount.class
+Admin.class: Admin.java User.class 
 	javac -g Admin.java
 
 Customer.class: Customer.java User.class CheckingAccount.class SavingsAccount.class

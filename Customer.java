@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Customer extends User implements HasMenu {
+public class Customer extends User implements HasMenu, Serializable {
 	CheckingAccount checking;
 	SavingsAccount savings;
 
@@ -20,8 +20,8 @@ public class Customer extends User implements HasMenu {
 		this.setUserName(userName);
 		this.setPin(PIN);
 
-		this.checking = new CheckingAccount(5d);
-                this.savings = new SavingsAccount(10d);
+		this.checking = new CheckingAccount(0d);
+                this.savings = new SavingsAccount(0d);
 	}// end customer with params
 	
     	public void start(){
@@ -48,10 +48,10 @@ public class Customer extends User implements HasMenu {
 	
 	public String menu(){
 		System.out.println("-- In Customer Menu --");
-		System.out.println("0) quit");
-		System.out.println("1) manage Checking Account");
-		System.out.println("2) manage Savings Account");
-		System.out.println("3) change PIN");
+		System.out.println("0) Quit");
+		System.out.println("1) Manage Checking Account");
+		System.out.println("2) Manage Savings Account");
+		System.out.println("3) Change PIN");
 		System.out.print("Choose 0-3: ");
 
 		Scanner input = new Scanner(System.in);
@@ -66,6 +66,8 @@ public class Customer extends User implements HasMenu {
 		System.out.print("What would you like to change PIN to? ");
 		String newPin = input.nextLine();
 		this.setPin(newPin);
+
+		System.out.println("Pin changed successfully.");
 	}// end changePIN
 	
 	public String getReport(){
